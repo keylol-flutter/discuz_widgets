@@ -89,23 +89,6 @@ class _MyHomePageState extends State<MyHomePage> {
           </spoil>
         </spoil>
         <countdown>2023-08-20 00:00:00</countdown>
-        <table>
-          <tr>
-            <th>Company</th>
-            <th>Contact</th>
-            <th>Country</th>
-          </tr>
-          <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
-          </tr>
-          <tr>
-            <td>Centro comercial Moctezuma</td>
-            <td>Francisco Chang</td>
-            <td>Mexico</td>
-          </tr>
-        </table> 
         <div class="blockcode">
           <div>
             <p>代码:</p>
@@ -113,24 +96,23 @@ class _MyHomePageState extends State<MyHomePage> {
               <li>1111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111111</li>
               <li>\$ curl -vl x.com<br></li>
               <li>* processing: x.com<br></li>
-              <li>*&nbsp; &nbsp;trying 34.102.136.180:80...<br></li>
+              <li>* trying 34.102.136.180:80...<br></li>
               <li>* connected to x.com (34.102.136.180) port 80<br></li>
-              <li>&gt; get / http/1.1<br></li>
-              <li>&gt; host: x.com<br></li>
-              <li>&gt; user-agent: curl/8.2.0<br></li>
-              <li>&gt; accept: */*<br></li>
-              <li>&gt; <br></li>
-              <li>&lt; http/1.1 302 moved temporarily<br></li>
-              <li>&lt; date: mon, 24 jul 2023 00:49:55 gmt<br></li>
-              <li>&lt; transfer-encoding: chunked<br></li>
-              <li>&lt; connection: keep-alive<br></li>
-              <li>&lt; cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0,
-                  pre-check=0<br></li>
-              <li>&lt; expires: thu, 01 jan 1970 00:00:01 gmt<br></li>
-              <li>&lt; location: https://.twitter.com/<br></li>
-              <li>&lt; server: cloudflare<br></li>
-              <li>&lt; cf-ray:<br></li>
-              <li>&lt; <br></li>
+              <li>get / http/1.1<br></li>
+              <li>host: x.com<br></li>
+              <li>user-agent: curl/8.2.0<br></li>
+              <li>accept: */*<br></li>
+              <li><br></li>
+              <li>http/1.1 302 moved temporarily<br></li>
+              <li>date: mon, 24 jul 2023 00:49:55 gmt<br></li>
+              <li>transfer-encoding: chunked<br></li>
+              <li>connection: keep-alive<br></li>
+              <li>cache-control: private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0<br></li>
+              <li>expires: thu, 01 jan 1970 00:00:01 gmt<br></li>
+              <li>location: https://.twitter.com/<br></li>
+              <li>server: cloudflare<br></li>
+              <li>cf-ray:<br></li>
+              <li><br></li>
               <li>* ignoring the response-body<br></li>
               <li>* connection #0 to host x.com left intact<br></li>
               <li>* clear auth, redirects to port from 80 to 443<br></li>

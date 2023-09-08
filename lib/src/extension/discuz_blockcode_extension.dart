@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
@@ -32,23 +33,45 @@ class BlockCode extends StatefulWidget {
 }
 
 class _BlockCodeState extends State<BlockCode> {
-  late final String data;
+  late final List<String> codeLines;
 
   @override
   void initState() {
-    data = widget.context.innerHtml;
+    final element = widget.context.element;
+    if (element == null) {
+      codeLines = [];
+    } else {
+      codeLines =
+          element.getElementsByTagName('li').map((e) => e.innerHtml).toList();
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    if (codeLines.isEmpty) {
+      return Container();
+    }
+
     return Container(
-      height: 200,
-      child: ListView(
+      color: Theme.of(context).colorScheme.surfaceVariant,
+      padding: const EdgeInsets.all(8),
+      child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
-        children: [
-          Html(data: data),
-        ],
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: codeLines.mapIndexed((index, codeLine) {
+              return Row(
+                children: [
+                  SizedBox(
+                    width: 24,
+                    child: SelectionContainer.disabled(
+                        child: Text('${index + 1}.')),
+                  ),
+                  Text(codeLine),
+                ],
+              );
+            }).toList()),
       ),
     );
   }
