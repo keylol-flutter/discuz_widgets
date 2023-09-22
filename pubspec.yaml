@@ -43,6 +43,7 @@ dependencies:
   date_format: ^2.0.7
   webview_flutter: ^4.2.2
   collection: ^1.17.1
+  flutter_inappwebview: ^5.7.2+3
 
 dev_dependencies:
   flutter_test:
