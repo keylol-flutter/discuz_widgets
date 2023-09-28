@@ -1,3 +1,4 @@
+import 'package:discuz_widgets/src/widgets/auto_resize_webview.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
@@ -46,19 +47,8 @@ class _IframeState extends State<Iframe> {
       return Container();
     }
 
-    final size = MediaQuery
-        .of(context)
-        .size;
-    return SizedBox(
-      width: 300,
-      height: 200,
-      child: InAppWebView(
-        initialUrlRequest: URLRequest(url: Uri.parse(url)),
-        initialOptions: InAppWebViewGroupOptions(
-          crossPlatform: InAppWebViewOptions(
-          )
-        ),
-      ),
+    return AutoResizeWebView(
+      url: url,
     );
   }
 }
