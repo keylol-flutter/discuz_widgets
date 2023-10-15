@@ -21,6 +21,11 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
   Widget build(BuildContext context) {
     super.build(context);
     var url = widget.url;
+    if (url.startsWith('https://www.bilibili.com/video/')) {
+      final bvid = url.replaceAll('https://www.bilibili.com/video/', '');
+      url = 'https://player.bilibili.com/player.html?bvid=$bvid';
+    }
+
     if (url.startsWith('https://store.steampowered.com/widget')) {
       _height = 73.0;
     } else if (url.startsWith('https://player.bilibili.com/player.html')) {

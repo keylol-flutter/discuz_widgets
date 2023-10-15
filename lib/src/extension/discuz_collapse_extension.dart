@@ -47,6 +47,7 @@ class _CollapseState extends State<Collapse> {
     if (!_expanded) {
       return Card(
         elevation: 0,
+        margin: const EdgeInsets.only(top: 4, bottom: 4),
         color: Theme.of(context).colorScheme.surfaceVariant,
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -74,7 +75,7 @@ class _CollapseState extends State<Collapse> {
       );
     } else {
       return Container(
-        margin: const EdgeInsets.all(4),
+        margin: const EdgeInsets.only(top: 4, bottom: 4),
         child: Column(
           children: [
             Card(

@@ -1,13 +1,18 @@
 import 'package:discuz_widgets/src/widgets/auto_resize_webview.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
 class DiscuzIframeExtension extends HtmlExtension {
   const DiscuzIframeExtension();
 
   @override
-  Set<String> get supportedTags => {'iframe'};
+  Set<String> get supportedTags => {};
+
+  @override
+  bool matches(ExtensionContext context) {
+    return context.elementName == 'iframe' ||
+        (context.elementName == 'a' && context.classes.contains('media'));
+  }
 
   @override
   InlineSpan build(ExtensionContext context) {
@@ -35,7 +40,9 @@ class _IframeState extends State<Iframe> {
 
   @override
   void initState() {
-    url = widget.context.attributes['src'] ?? '';
+    url = widget.context.attributes['src'] ??
+        widget.context.attributes['href'] ??
+        '';
     width = widget.context.style?.width?.value;
     height = widget.context.style?.height?.value;
     super.initState();

@@ -45,7 +45,7 @@ class _SpoilState extends State<Spoil> {
   Widget build(BuildContext context) {
     if (!_expanded) {
       return Container(
-        margin: const EdgeInsets.all(4),
+        margin: const EdgeInsets.only(top: 4, bottom: 4),
         child: DottedBorder(
           color: Colors.red,
           child: Padding(
@@ -83,7 +83,7 @@ class _SpoilState extends State<Spoil> {
       );
     } else {
       return Container(
-        margin: const EdgeInsets.all(4),
+        margin: const EdgeInsets.only(top: 4, bottom: 4),
         child: DottedBorder(
           color: Colors.red,
           child: Column(
