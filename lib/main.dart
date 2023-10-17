@@ -70,8 +70,9 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      body: const Discuz(
-        data: '''
+      body: const SingleChildScrollView(
+        child: Discuz(
+          data: '''
         <collapse title="CollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapseCollapse">
           <collapse title="Collapse1">
             Collapse1
@@ -123,8 +124,10 @@ class _MyHomePageState extends State<MyHomePage> {
             </ol>
           </div>
         </div>
+        <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"/>
         ''',
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      ),
     );
   }
 }
