@@ -26,7 +26,16 @@ class ImageView extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () {
-              _saveNetworkImageToPhoto(context);
+              _saveNetworkImageToPhoto(context).then((success) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: success
+                        ? const Text('Save success')
+                        : const Text('Save failed'),
+                    behavior: SnackBarBehavior.floating,
+                  ),
+                );
+              });
             },
           ),
         ],
@@ -41,14 +50,17 @@ class ImageView extends StatelessWidget {
     );
   }
 
-  Future<void> _saveNetworkImageToPhoto(BuildContext context) async {
+  Future<bool> _saveNetworkImageToPhoto(BuildContext context) async {
     final fileName = url.split('/').last;
     try {
       Response<List<int>> res = await Dio().get<List<int>>(url,
           options: Options(responseType: ResponseType.bytes));
       final data = Uint8List.fromList(res.data!);
-      await ImageSave.saveImage(data, fileName);
-    } on PlatformException catch (e) {
+      return await ImageSave.saveImage(data, fileName,
+              overwriteSameNameFile: false) ??
+          false;
+    } catch (e) {
+      return false;
     }
   }
 }
