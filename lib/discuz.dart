@@ -3,6 +3,7 @@ import 'package:discuz_widgets/src/extension/discuz_collapse_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_countdown_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_iframe_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_spoil_extension.dart';
+import 'package:discuz_widgets/src/extension/discuz_table_extension.dart';
 import 'package:discuz_widgets/src/widgets/image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -66,7 +67,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
           const DiscuzIframeExtension(),
-          // const TableHtmlExtension(),
+          const DiscuzTableExtension(),
           const VideoHtmlExtension(),
 
           OnImageTapExtension(
