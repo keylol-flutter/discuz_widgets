@@ -1,4 +1,5 @@
 import 'package:discuz_widgets/src/extension/discuz_blockcode_extension.dart';
+import 'package:discuz_widgets/src/extension/discuz_blockquote_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_collapse_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_countdown_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_iframe_extension.dart';
@@ -7,13 +8,19 @@ import 'package:discuz_widgets/src/extension/discuz_table_extension.dart';
 import 'package:discuz_widgets/src/widgets/image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html_table/flutter_html_table.dart';
 import 'package:flutter_html_video/flutter_html_video.dart';
 
 class Discuz extends StatefulWidget {
   final String data;
+  final bool isPost;
+  final bool nested;
 
-  const Discuz({super.key, required this.data});
+  const Discuz({
+    super.key,
+    required this.data,
+    this.isPost = false,
+    this.nested = false,
+  });
 
   @override
   State<StatefulWidget> createState() => _DiscuzState();
@@ -60,6 +67,7 @@ class _DiscuzState extends State<Discuz> {
   Widget build(BuildContext context) {
     return SelectionArea(
       child: Html(
+        shrinkWrap: true,
         data: data,
         extensions: [
           const DiscuzCollapseExtension(),
@@ -69,7 +77,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzIframeExtension(),
           const DiscuzTableExtension(),
           const VideoHtmlExtension(),
-
+          DiscuzBlockquoteExtension(isPost: widget.isPost),
           OnImageTapExtension(
             onImageTap: (src, imgAttributes, element) {
               showDialog(
@@ -87,7 +95,7 @@ class _DiscuzState extends State<Discuz> {
         ],
         style: {
           'body': Style(
-            padding: HtmlPaddings.only(left: 8, right: 8),
+            margin: widget.nested ? Margins.zero : null,
           )
         },
       ),
