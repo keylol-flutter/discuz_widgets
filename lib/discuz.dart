@@ -9,17 +9,20 @@ import 'package:discuz_widgets/src/widgets/image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html_video/flutter_html_video.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class Discuz extends StatefulWidget {
   final String data;
   final bool isPost;
   final bool nested;
+  final OnTap? onLinkTap;
 
   const Discuz({
     super.key,
     required this.data,
     this.isPost = false,
     this.nested = false,
+    this.onLinkTap,
   });
 
   @override
@@ -67,8 +70,13 @@ class _DiscuzState extends State<Discuz> {
   Widget build(BuildContext context) {
     return SelectionArea(
       child: Html(
-        shrinkWrap: true,
         data: data,
+        onLinkTap: widget.onLinkTap ??
+            (url, attributes, element) {
+              if (url != null) {
+                launchUrlString(url, mode: LaunchMode.externalApplication);
+              }
+            },
         extensions: [
           const DiscuzCollapseExtension(),
           const DiscuzSpoilExtension(),
@@ -76,6 +84,15 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzBlockcodeExtension(),
           const DiscuzIframeExtension(),
           const DiscuzTableExtension(),
+          TagWrapExtension(
+            tagsToWrap: {'table'},
+            builder: (child) {
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: child,
+              );
+            },
+          ),
           const VideoHtmlExtension(),
           DiscuzBlockquoteExtension(isPost: widget.isPost),
           OnImageTapExtension(
