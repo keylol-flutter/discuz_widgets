@@ -15,6 +15,7 @@ class Discuz extends StatefulWidget {
   final String data;
   final bool isPost;
   final bool nested;
+  final Color? color;
   final OnTap? onLinkTap;
 
   const Discuz({
@@ -22,6 +23,7 @@ class Discuz extends StatefulWidget {
     required this.data,
     this.isPost = false,
     this.nested = false,
+    this.color,
     this.onLinkTap,
   });
 
@@ -82,7 +84,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzSpoilExtension(),
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
-          const DiscuzReplyWrapExtension(),
+          DiscuzReplyWrapExtension(isPost: widget.isPost),
           const DiscuzIframeExtension(),
           const DiscuzTableExtension(),
           TagWrapExtension(
@@ -113,6 +115,7 @@ class _DiscuzState extends State<Discuz> {
         style: {
           'body': Style(
             margin: widget.nested ? Margins.zero : null,
+            color: widget.color,
           )
         },
       ),

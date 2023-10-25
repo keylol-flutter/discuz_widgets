@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class DiscuzReplyWrapExtension extends HtmlExtension {
-  const DiscuzReplyWrapExtension();
+  final bool isPost;
+
+  DiscuzReplyWrapExtension({this.isPost = false});
 
   @override
   Set<String> get supportedTags => {'div'};
@@ -19,23 +21,35 @@ class DiscuzReplyWrapExtension extends HtmlExtension {
     return WidgetSpan(
       child: ReplyWrap(
         extensionContext: context,
+        isPost: isPost,
       ),
     );
   }
 }
 
 class ReplyWrap extends StatelessWidget {
+  final bool isPost;
   final ExtensionContext extensionContext;
 
-  const ReplyWrap({super.key, required this.extensionContext});
+  const ReplyWrap(
+      {super.key, required this.extensionContext, required this.isPost});
 
   @override
   Widget build(BuildContext context) {
+    if (!isPost) {
+      return Discuz(
+        data: '引用: ${extensionContext.innerHtml}',
+        nested: false,
+        color: Colors.grey,
+      );
+    }
+
     return DottedBorder(
       color: Colors.grey,
       child: Discuz(
         data: '引用: ${extensionContext.innerHtml}',
-        nested: true,
+        nested: false,
+        color: Colors.grey,
       ),
     );
   }
