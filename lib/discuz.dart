@@ -1,8 +1,8 @@
 import 'package:discuz_widgets/src/extension/discuz_blockcode_extension.dart';
-import 'package:discuz_widgets/src/extension/discuz_blockquote_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_collapse_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_countdown_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_iframe_extension.dart';
+import 'package:discuz_widgets/src/extension/discuz_reply_wrap_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_spoil_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_table_extension.dart';
 import 'package:discuz_widgets/src/widgets/image_view.dart';
@@ -82,6 +82,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzSpoilExtension(),
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
+          const DiscuzReplyWrapExtension(),
           const DiscuzIframeExtension(),
           const DiscuzTableExtension(),
           TagWrapExtension(
@@ -94,7 +95,6 @@ class _DiscuzState extends State<Discuz> {
             },
           ),
           const VideoHtmlExtension(),
-          DiscuzBlockquoteExtension(isPost: widget.isPost),
           OnImageTapExtension(
             onImageTap: (src, imgAttributes, element) {
               showDialog(

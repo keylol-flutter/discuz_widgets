@@ -142,9 +142,9 @@ class _MyHomePageState extends State<MyHomePage> {
             <td>Mexico</td>
           </tr>
         </table> 
-        <blockquote>
+        <div class="reply_wrap">
           AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-        </blockquote><br/>
+        </div>
         <p style="background-color:black">Hidden</p>
         <a href="https://www.github.com">https://www.github.com</a>
         ''',
