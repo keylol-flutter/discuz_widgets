@@ -59,7 +59,7 @@ class _DiscuzState extends State<Discuz> {
     // 倒计时
     data =
         data.replaceAllMapped(RegExp(r'\[micxp_countdown=?([^\]]*)]'), (match) {
-      return '<countdown>${match[1]}';
+      return '<countdown title=${match[1]}>';
     }).replaceAll('[/micxp_countdown]', '</countdown>');
 
     // 使用 https
