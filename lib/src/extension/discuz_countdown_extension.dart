@@ -33,7 +33,12 @@ class _CountdownState extends State<Countdown> {
   void initState() {
     date = widget.context.innerHtml.isEmpty
         ? null
-        : DateTime.parse(widget.context.innerHtml);
+        : DateTime.parse(widget.context.innerHtml.replaceAllMapped(
+            RegExp(r'\s(\d):(\d{2})'),
+            (match) {
+              return ' 0${match[1]}:${match[2]}';
+            },
+          ));
     super.initState();
   }
 
