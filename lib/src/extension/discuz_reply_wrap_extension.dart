@@ -53,7 +53,7 @@ class ReplyWrap extends StatelessWidget {
             const SizedBox(width: 16.0),
             Expanded(
                 child: Discuz(
-              data: '引用: ${extensionContext.innerHtml}',
+              data: extensionContext.innerHtml,
               nested: false,
               color: Colors.grey,
             )),
