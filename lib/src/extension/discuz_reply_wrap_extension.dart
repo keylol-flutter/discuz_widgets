@@ -41,14 +41,18 @@ class ReplyWrap extends StatelessWidget {
       children: [
         Row(
           children: [
-            Image.asset('images/quote_proper_left.png'),
+            Image.asset(
+              'images/quote_proper_left.png',
+              package: 'discuz_widgets',
+            ),
             Expanded(child: Container())
           ],
         ),
         Row(
           children: [
             const SizedBox(width: 16.0),
-            Expanded(child: Discuz(
+            Expanded(
+                child: Discuz(
               data: '引用: ${extensionContext.innerHtml}',
               nested: false,
               color: Colors.grey,
@@ -59,12 +63,14 @@ class ReplyWrap extends StatelessWidget {
         Row(
           children: [
             Expanded(child: Container()),
-            Image.asset('images/quote_proper_right.png')
+            Image.asset(
+              'images/quote_proper_right.png',
+              package: 'discuz_widgets',
+            )
           ],
         )
       ],
     );
-
 
     // if (!isPost) {
     //   return Discuz(
