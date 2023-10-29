@@ -36,21 +36,51 @@ class ReplyWrap extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (!isPost) {
-      return Discuz(
-        data: '引用: ${extensionContext.innerHtml}',
-        nested: false,
-        color: Colors.grey,
-      );
-    }
-
-    return DottedBorder(
-      color: Colors.grey,
-      child: Discuz(
-        data: '引用: ${extensionContext.innerHtml}',
-        nested: false,
-        color: Colors.grey,
-      ),
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            Image.asset('images/quote_proper_left.png'),
+            Expanded(child: Container())
+          ],
+        ),
+        Row(
+          children: [
+            const SizedBox(width: 16.0),
+            Expanded(child: Discuz(
+              data: '引用: ${extensionContext.innerHtml}',
+              nested: false,
+              color: Colors.grey,
+            )),
+            const SizedBox(width: 16.0)
+          ],
+        ),
+        Row(
+          children: [
+            Expanded(child: Container()),
+            Image.asset('images/quote_proper_right.png')
+          ],
+        )
+      ],
     );
+
+
+    // if (!isPost) {
+    //   return Discuz(
+    //     data: '引用: ${extensionContext.innerHtml}',
+    //     nested: false,
+    //     color: Colors.grey,
+    //   );
+    // }
+    //
+    // return DottedBorder(
+    //   color: Colors.grey,
+    //   child: Discuz(
+    //     data: '引用: ${extensionContext.innerHtml}',
+    //     nested: false,
+    //     color: Colors.grey,
+    //   ),
+    // );
   }
 }
