@@ -127,7 +127,10 @@ class _CollapseState extends State<Collapse> {
                   bottom: Radius.circular(12),
                 ),
               ),
-              child: Discuz(data: message),
+              child: Discuz(
+                data: message,
+                onLinkTap: widget.context.parser.onLinkTap,
+              ),
             ),
           ],
         ),

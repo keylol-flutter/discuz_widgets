@@ -52,11 +52,13 @@ class ReplyWrap extends StatelessWidget {
           children: [
             const SizedBox(width: 16.0),
             Expanded(
-                child: Discuz(
-              data: extensionContext.innerHtml,
-              nested: false,
-              color: Colors.grey,
-            )),
+              child: Discuz(
+                data: extensionContext.innerHtml,
+                nested: false,
+                color: Colors.grey,
+                onLinkTap: extensionContext.parser.onLinkTap,
+              ),
+            ),
             const SizedBox(width: 16.0)
           ],
         ),

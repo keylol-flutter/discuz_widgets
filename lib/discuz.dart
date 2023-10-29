@@ -86,7 +86,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzBlockcodeExtension(),
           DiscuzReplyWrapExtension(isPost: widget.isPost),
           const DiscuzIframeExtension(),
-          const DiscuzTableExtension(),
+          // const DiscuzTableExtension(),
           TagWrapExtension(
             tagsToWrap: {'table'},
             builder: (child) {

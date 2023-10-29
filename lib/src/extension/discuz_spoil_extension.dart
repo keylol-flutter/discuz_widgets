@@ -117,7 +117,10 @@ class _SpoilState extends State<Spoil> {
                   ],
                 ),
               ),
-              Discuz(data: message),
+              Discuz(
+                data: message,
+                onLinkTap: widget.context.parser.onLinkTap,
+              ),
             ],
           ),
         ),
