@@ -1,13 +1,14 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:discuz_widgets/src/extension/discuz_blockcode_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_collapse_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_countdown_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_iframe_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_reply_wrap_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_spoil_extension.dart';
-import 'package:discuz_widgets/src/extension/discuz_table_extension.dart';
 import 'package:discuz_widgets/src/widgets/image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_html/src/tree/image_element.dart';
 import 'package:flutter_html_video/flutter_html_video.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -97,20 +98,43 @@ class _DiscuzState extends State<Discuz> {
             },
           ),
           const VideoHtmlExtension(),
-          OnImageTapExtension(
-            onImageTap: (src, imgAttributes, element) {
-              showDialog(
-                context: context,
-                builder: (context) {
-                  return Dialog.fullscreen(
-                    child: ImageView(
-                      url: src!,
-                    ),
+          ImageExtension(builder: (extensionContext) {
+            final element = extensionContext.styledElement as ImageElement;
+            final style = Style(
+              width: element.width,
+              height: element.height,
+            ).merge(element.style);
+
+            final url = element.src;
+            return CssBoxWidget(
+              style: style,
+              childIsReplaced: true,
+              child: GestureDetector(
+                child: CachedNetworkImage(
+                  imageUrl: url,
+                  width: element.width?.value,
+                  height: element.height?.value,
+                  progressIndicatorBuilder: (context, url, progress) {
+                    return CircularProgressIndicator(
+                      value: progress.progress,
+                    );
+                  },
+                ),
+                onTap: () {
+                  showDialog(
+                    context: context,
+                    builder: (context) {
+                      return Dialog.fullscreen(
+                        child: ImageView(
+                          url: url,
+                        ),
+                      );
+                    },
                   );
                 },
-              );
-            },
-          ),
+              ),
+            );
+          }),
         ],
         style: {
           'body': Style(
