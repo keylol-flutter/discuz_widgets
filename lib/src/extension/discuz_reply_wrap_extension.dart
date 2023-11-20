@@ -72,22 +72,5 @@ class ReplyWrap extends StatelessWidget {
         )
       ],
     );
-
-    // if (!isPost) {
-    //   return Discuz(
-    //     data: '引用: ${extensionContext.innerHtml}',
-    //     nested: false,
-    //     color: Colors.grey,
-    //   );
-    // }
-    //
-    // return DottedBorder(
-    //   color: Colors.grey,
-    //   child: Discuz(
-    //     data: '引用: ${extensionContext.innerHtml}',
-    //     nested: false,
-    //     color: Colors.grey,
-    //   ),
-    // );
   }
 }

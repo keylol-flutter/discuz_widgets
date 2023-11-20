@@ -1,6 +1,7 @@
 import 'package:discuz_widgets/src/extension/discuz_blockcode_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_collapse_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_countdown_extension.dart';
+import 'package:discuz_widgets/src/extension/discuz_image_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_reply_wrap_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_spoil_extension.dart';
 import 'package:discuz_widgets/src/widgets/image_view.dart';
@@ -84,6 +85,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
           DiscuzReplyWrapExtension(isPost: widget.isPost),
+          DiscuzImageExtension(context),
           const TableHtmlExtension(),
           TagWrapExtension(
             tagsToWrap: {'table'},
@@ -95,22 +97,6 @@ class _DiscuzState extends State<Discuz> {
             },
           ),
           const VideoHtmlExtension(),
-          OnImageTapExtension(
-            onImageTap: (url, attributes, element) {
-              if (url != null) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return Dialog.fullscreen(
-                      child: ImageView(
-                        url: url,
-                      ),
-                    );
-                  },
-                );
-              }
-            },
-          ),
         ],
         style: {
           'body': Style(
