@@ -1,5 +1,4 @@
 import 'package:discuz_widgets/discuz.dart';
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
