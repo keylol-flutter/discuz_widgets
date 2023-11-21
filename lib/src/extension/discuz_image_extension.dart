@@ -5,19 +5,13 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/src/tree/image_element.dart';
 
 class DiscuzImageExtension extends ImageExtension {
-  DiscuzImageExtension(BuildContext context)
-      : super(builder: (extensionContext) {
-          final element = extensionContext.styledElement as ImageElement;
-          final style = Style(
-            width: element.width,
-            height: element.height,
-          ).merge(element.style);
+  DiscuzImageExtension()
+      : super(
+          builder: (extensionContext) {
+            final element = extensionContext.styledElement as ImageElement;
 
-          final url = element.src;
-          return CssBoxWidget(
-            style: style,
-            childIsReplaced: true,
-            child: GestureDetector(
+            final url = element.src;
+            return GestureDetector(
               child: CachedNetworkImage(
                 imageUrl: url,
                 width: element.width?.value,
@@ -31,7 +25,7 @@ class DiscuzImageExtension extends ImageExtension {
               ),
               onTap: () {
                 showDialog(
-                  context: context,
+                  context: extensionContext.buildContext!,
                   builder: (context) {
                     return Dialog.fullscreen(
                       child: ImageView(
@@ -41,7 +35,7 @@ class DiscuzImageExtension extends ImageExtension {
                   },
                 );
               },
-            ),
-          );
-        });
+            );
+          },
+        );
 }

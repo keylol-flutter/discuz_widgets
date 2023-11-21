@@ -4,7 +4,6 @@ import 'package:discuz_widgets/src/extension/discuz_countdown_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_image_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_reply_wrap_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_spoil_extension.dart';
-import 'package:discuz_widgets/src/widgets/image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html_table/flutter_html_table.dart';
@@ -85,7 +84,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
           DiscuzReplyWrapExtension(isPost: widget.isPost),
-          DiscuzImageExtension(context),
+          DiscuzImageExtension(),
           const TableHtmlExtension(),
           TagWrapExtension(
             tagsToWrap: {'table'},
