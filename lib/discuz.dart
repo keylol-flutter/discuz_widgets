@@ -4,9 +4,9 @@ import 'package:discuz_widgets/src/extension/discuz_countdown_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_image_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_reply_wrap_extension.dart';
 import 'package:discuz_widgets/src/extension/discuz_spoil_extension.dart';
+import 'package:discuz_widgets/src/extension/discuz_table_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
-import 'package:flutter_html_table/flutter_html_table.dart';
 import 'package:flutter_html_video/flutter_html_video.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -85,23 +85,14 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzBlockcodeExtension(),
           DiscuzReplyWrapExtension(isPost: widget.isPost),
           DiscuzImageExtension(),
-          const TableHtmlExtension(),
-          TagWrapExtension(
-            tagsToWrap: {'table'},
-            builder: (child) {
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: child,
-              );
-            },
-          ),
+          const DiscuzTableExtension(),
           const VideoHtmlExtension(),
         ],
         style: {
           'body': Style(
             margin: widget.nested ? Margins.zero : null,
             color: widget.color,
-          )
+          ),
         },
       ),
     );

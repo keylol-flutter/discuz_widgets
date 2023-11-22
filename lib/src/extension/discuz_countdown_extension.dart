@@ -28,6 +28,7 @@ class Countdown extends StatefulWidget {
 
 class _CountdownState extends State<Countdown> {
   late final DateTime? date;
+  late final String? text;
 
   @override
   void initState() {
@@ -39,6 +40,7 @@ class _CountdownState extends State<Countdown> {
               return ' 0${match[1]}:${match[2]}';
             },
           ));
+    text = widget.context.attributes['title'];
     super.initState();
   }
 
@@ -46,6 +48,12 @@ class _CountdownState extends State<Countdown> {
   Widget build(BuildContext context) {
     if (date == null) {
       return Container();
+    }
+
+    if (date!.compareTo(DateTime.now()) < 0) {
+      return Center(
+        child: Text('本活动已结束${text == null ? '' : '，'}$text'),
+      );
     }
 
     return Padding(

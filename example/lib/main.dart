@@ -125,25 +125,38 @@ class _MyHomePageState extends State<MyHomePage> {
             </ol>
           </div>
         </div>
-        <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"/>
-        <img width="2000" src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?ixid=M3wxMTI1OHwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMDQ0Nzk5N3w&ixlib=rb-4.0.3&q=85&w=1920"/>
         <table>
           <tr>
-            <th>Company</th>
-            <th>Contact</th>
-            <th>Country</th>
+            <td>
+              <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"/>
+            </td>
+            <td>
+              <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"/>
+            </td>
           </tr>
           <tr>
-            <td>Alfreds Futterkiste</td>
-            <td>Maria Anders</td>
-            <td>Germany</td>
+            <td>
+              <img width="2000" src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?ixid=M3wxMTI1OHwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMDQ0Nzk5N3w&ixlib=rb-4.0.3&q=85&w=1920"/>
+            </td>
+            <td>
+              <img width="2000" src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?ixid=M3wxMTI1OHwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMDQ0Nzk5N3w&ixlib=rb-4.0.3&q=85&w=1920"/>
+            </td>
           </tr>
           <tr>
-            <td>Centro comercial Moctezuma</td>
-            <td>Francisco Chang</td>
-            <td>Mexico</td>
+            <td>
+              LALALALALALA
+            </td>
+            <td>
+            <table>
+              <tr>
+                <td>
+                  LALALALALALA
+                </td>
+              </tr>
+            </table>
+            </td>
           </tr>
-        </table> 
+        </table>
         <div class="reply_wrap">
             AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
         </div>
