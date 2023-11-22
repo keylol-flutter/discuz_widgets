@@ -41,8 +41,11 @@ class _BlockCodeState extends State<BlockCode> {
     if (element == null) {
       codeLines = [];
     } else {
-      codeLines =
-          element.getElementsByTagName('li').map((e) => e.innerHtml).toList();
+      codeLines = element
+          .getElementsByTagName('li')
+          .map((e) => e.innerHtml)
+          .where((e) => e.isNotEmpty)
+          .toList();
     }
     super.initState();
   }

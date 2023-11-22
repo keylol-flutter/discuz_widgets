@@ -50,9 +50,9 @@ class _CountdownState extends State<Countdown> {
       return Container();
     }
 
-    if (date!.compareTo(DateTime.now()) < 0) {
+    if (date!.compareTo(DateTime.now()) < 0 && text != null) {
       return Center(
-        child: Text('本活动已结束${text == null ? '' : '，'}$text'),
+        child: Text(text!),
       );
     }
 
