@@ -130,30 +130,18 @@ class _MyHomePageState extends State<MyHomePage> {
             <td>
               <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"/>
             </td>
+          </tr>
             <td>
               <img src="https://interactive-examples.mdn.mozilla.net/media/cc0-images/grapefruit-slice-332-332.jpg"/>
             </td>
           </tr>
           <tr>
             <td>
-              <img width="2000" src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?ixid=M3wxMTI1OHwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMDQ0Nzk5N3w&ixlib=rb-4.0.3&q=85&w=1920"/>
-            </td>
-            <td>
-              <img width="2000" src="https://images.unsplash.com/photo-1444090542259-0af8fa96557e?ixid=M3wxMTI1OHwwfDF8cmFuZG9tfHx8fHx8fHx8MTcwMDQ0Nzk5N3w&ixlib=rb-4.0.3&q=85&w=1920"/>
-            </td>
-          </tr>
-          <tr>
-            <td>
               LALALALALALA
             </td>
+          </tr>
             <td>
-            <table>
-              <tr>
-                <td>
-                  LALALALALALA
-                </td>
-              </tr>
-            </table>
+              LALALALALALA
             </td>
           </tr>
         </table>
