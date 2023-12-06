@@ -5,12 +5,18 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html/src/tree/image_element.dart';
 
 class DiscuzImageExtension extends ImageExtension {
-  DiscuzImageExtension()
+  final String baseUrl;
+
+  DiscuzImageExtension({required this.baseUrl})
       : super(
           builder: (extensionContext) {
             final element = extensionContext.styledElement as ImageElement;
 
-            final url = element.src;
+            var url = element.src;
+            if (!url.startsWith('http')) {
+              url = baseUrl + url;
+            }
+
             return GestureDetector(
               child: CachedNetworkImage(
                 imageUrl: url,

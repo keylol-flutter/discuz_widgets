@@ -12,6 +12,8 @@ import 'package:flutter_html_video/flutter_html_video.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class Discuz extends StatefulWidget {
+  final String baseUrl;
+
   final String data;
   final Map<String, String> attachments;
 
@@ -22,6 +24,7 @@ class Discuz extends StatefulWidget {
 
   const Discuz({
     super.key,
+    this.baseUrl = '',
     required this.data,
     this.attachments = const {},
     this.isPost = false,
@@ -48,6 +51,8 @@ class _DiscuzState extends State<Discuz> {
     data = data.trimLeft().trimRight();
     // \r\n 替换空格
     data = data.replaceAll('\r\n', '');
+    // 转义
+    data = data.replaceAll('\"', '"');
 
     // 折叠内容
     data = data.replaceAllMapped(
@@ -67,8 +72,8 @@ class _DiscuzState extends State<Discuz> {
 
     // 视频
     data = data
-        .replaceAll('[media]', '<video src="')
-        .replaceAll('[/media]', '"></video>');
+        .replaceAll('[media]', '<iframe src="')
+        .replaceAll('[/media]', '"></iframe>');
 
     // 倒计时
     data = data.replaceAllMapped(
@@ -142,7 +147,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
           DiscuzReplyWrapExtension(isPost: widget.isPost),
-          DiscuzImageExtension(),
+          DiscuzImageExtension(baseUrl: widget.baseUrl),
           const DiscuzTableExtension(),
           const DiscuzIframeExtension(),
           const VideoHtmlExtension(),
