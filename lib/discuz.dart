@@ -51,8 +51,6 @@ class _DiscuzState extends State<Discuz> {
     data = data.trimLeft().trimRight();
     // \r\n 替换空格
     data = data.replaceAll('\r\n', '');
-    // 转义
-    data = data.replaceAll('\"', '"');
 
     // 折叠内容
     data = data.replaceAllMapped(

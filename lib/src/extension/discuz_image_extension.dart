@@ -44,4 +44,9 @@ class DiscuzImageExtension extends ImageExtension {
             );
           },
         );
+
+  @override
+  bool matches(ExtensionContext context) {
+    return context.elementName == 'img';
+  }
 }
