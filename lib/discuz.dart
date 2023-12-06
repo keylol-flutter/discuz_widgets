@@ -45,8 +45,8 @@ class _DiscuzState extends State<Discuz> {
   String _parseData(String data) {
     // trim
     data = data.trimLeft().trimRight();
-    // 换行替换成 br
-    data = data.replaceAll('\n', '<br/>');
+    // \r\n 替换空格
+    data = data.replaceAll('\r\n', '');
 
     // 折叠内容
     data = data.replaceAllMapped(
@@ -78,9 +78,12 @@ class _DiscuzState extends State<Discuz> {
     ).replaceAll('[/micxp_countdown]', '</countdown>');
 
     // 附件
-    data = data.replaceAllMapped(RegExp(r'[attach](((?![attach]).)*)[/attch]'), (match) {
-      return '<img src="${widget.attachments[match[1]]}">';
-    },);
+    data = data.replaceAllMapped(
+      RegExp(r'\[attach](((?!\[attach]).)*)\[/attach]'),
+      (match) {
+        return '<img src="${widget.attachments[match[1]]}">';
+      },
+    );
 
     // table
     data = data.replaceAllMapped(

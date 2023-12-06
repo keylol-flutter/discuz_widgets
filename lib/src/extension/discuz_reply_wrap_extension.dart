@@ -8,7 +8,7 @@ class DiscuzReplyWrapExtension extends HtmlExtension {
   DiscuzReplyWrapExtension({this.isPost = false});
 
   @override
-  Set<String> get supportedTags => {'div', 'blockquote'};
+  Set<String> get supportedTags => {'blockquote'};
 
   @override
   bool matches(ExtensionContext context) {
