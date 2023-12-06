@@ -15,6 +15,7 @@ class DiscuzTableExtension extends HtmlExtension {
         .firstWhere((element) => element.localName == 'tbody');
     return WidgetSpan(
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: _getElementsByTags(tBodyElement, {'tr'}).map(
           (row) {
             return Row(

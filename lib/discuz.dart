@@ -76,41 +76,34 @@ class _DiscuzState extends State<Discuz> {
 
     // table
     data = data.replaceAllMapped(
-      RegExp(r'<table>(((?!<table>).)*)</table>', multiLine: true),
+      RegExp(r'<tr>(((?!<tr>).)*)<tr>', multiLine: true),
       (match) {
-        final str = '<table>${match[1]}</table>';
+        var str = match[1] ?? '';
 
-        return str.replaceAllMapped(
-          RegExp(r'<tr>(((?!<tr>).)*)<tr>', multiLine: true),
-          (match) {
-            var str = match[1] ?? '';
+        while (str.contains('</tr>')) {
+          var tempStr = str.replaceFirst('</tr>', '');
+          if (!tempStr.contains('/tr>')) {
+            break;
+          }
+          str = tempStr;
+        }
 
-            while (str.contains('</tr>')) {
-              var tempStr = str.replaceFirst('</tr>', '');
-              if (!tempStr.contains('/tr>')) {
-                break;
-              }
-              str = tempStr;
-            }
+        return '<tr>$str<tr>';
+      },
+    ).replaceAllMapped(
+      RegExp(r'<tr>(((?!<tr>).)*)$', multiLine: true),
+      (match) {
+        var str = match[1] ?? '';
 
-            return '<tr>$str<tr>';
-          },
-        ).replaceAllMapped(
-          RegExp(r'<tr>(((?!<tr>).)*)$', multiLine: true),
-          (match) {
-            var str = match[1] ?? '';
+        while (str.contains('</tr>')) {
+          var tempStr = str.replaceFirst('</tr>', '');
+          if (!tempStr.contains('/tr>')) {
+            break;
+          }
+          str = tempStr;
+        }
 
-            while (str.contains('</tr>')) {
-              var tempStr = str.replaceFirst('</tr>', '');
-              if (!tempStr.contains('/tr>')) {
-                break;
-              }
-              str = tempStr;
-            }
-
-            return '<tr>$str';
-          },
-        );
+        return '<tr>$str';
       },
     );
 
