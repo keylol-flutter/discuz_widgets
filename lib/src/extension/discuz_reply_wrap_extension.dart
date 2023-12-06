@@ -8,11 +8,11 @@ class DiscuzReplyWrapExtension extends HtmlExtension {
   DiscuzReplyWrapExtension({this.isPost = false});
 
   @override
-  Set<String> get supportedTags => {'div'};
+  Set<String> get supportedTags => {'div', 'blockquote'};
 
   @override
   bool matches(ExtensionContext context) {
-    return super.matches(context) && context.classes.contains('reply_wrap');
+    return super.matches(context) || context.classes.contains('reply_wrap');
   }
 
   @override

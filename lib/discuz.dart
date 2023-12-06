@@ -12,6 +12,8 @@ import 'package:url_launcher/url_launcher_string.dart';
 
 class Discuz extends StatefulWidget {
   final String data;
+  final Map<String, String> attachments;
+
   final bool isPost;
   final bool nested;
   final Color? color;
@@ -20,6 +22,7 @@ class Discuz extends StatefulWidget {
   const Discuz({
     super.key,
     required this.data,
+    this.attachments = const {},
     this.isPost = false,
     this.nested = false,
     this.color,
@@ -73,6 +76,11 @@ class _DiscuzState extends State<Discuz> {
         return '<countdown title=${match[1]}>';
       },
     ).replaceAll('[/micxp_countdown]', '</countdown>');
+
+    // 附件
+    data = data.replaceAllMapped(RegExp(r'[attach](((?![attach]).)*)[/attch]'), (match) {
+      return '<img src="${widget.attachments[match[1]]}">';
+    },);
 
     // table
     data = data.replaceAllMapped(
