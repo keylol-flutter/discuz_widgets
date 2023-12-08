@@ -50,7 +50,12 @@ class _DiscuzState extends State<Discuz> {
     // trim
     data = data.trimLeft().trimRight();
     // \r\n 替换空格
-    data = data.replaceAll('\r\n', '');
+    data = data.replaceAll('\r\n', '').replaceAll('\n\r', '');
+    // 多个 <br/> 合并
+    data = data.replaceAllMapped(
+      RegExp(r'((<br\s?/>)*)'),
+      (match) => '<br />',
+    );
 
     // 折叠内容
     data = data.replaceAllMapped(
@@ -73,6 +78,9 @@ class _DiscuzState extends State<Discuz> {
         .replaceAll('[media]', '<iframe src="')
         .replaceAll('[/media]', '"></iframe>');
 
+    // 视频取消自动播放
+    data = data.replaceAll('<video', '<video autoplay="false"');
+
     // 倒计时
     data = data.replaceAllMapped(
       RegExp(r'\[micxp_countdown=?([^\]]*)]'),
@@ -85,9 +93,15 @@ class _DiscuzState extends State<Discuz> {
     data = data.replaceAllMapped(
       RegExp(r'\[attach](((?!\[attach]).)*)\[/attach]'),
       (match) {
-        return '<img src="${widget.attachments[match[1]]}">';
+        return '<img src="${widget.attachments.remove(match[1])}">';
       },
     );
+    // 多余附件文末显示
+    if (widget.attachments.isNotEmpty) {
+      for (final attachment in widget.attachments.values) {
+        data += '<br /><img src="$attachment">';
+      }
+    }
 
     // table
     data = data.replaceAllMapped(

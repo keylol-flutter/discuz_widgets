@@ -22,7 +22,7 @@ class DiscuzImageExtension extends ImageExtension {
                 imageUrl: url,
                 width: element.width?.value,
                 height: element.height?.value,
-                fit: BoxFit.contain,
+                fit: BoxFit.cover,
                 progressIndicatorBuilder: (context, url, progress) {
                   return CircularProgressIndicator(
                     value: progress.progress,
