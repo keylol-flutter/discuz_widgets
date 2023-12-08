@@ -53,7 +53,7 @@ class _DiscuzState extends State<Discuz> {
     data = data.replaceAll('\r\n', '').replaceAll('\n\r', '');
     // 多个 <br/> 合并
     data = data.replaceAllMapped(
-      RegExp(r'((<br\s?/>)*)'),
+      RegExp(r'(<br\s?/>)+'),
       (match) => '<br />',
     );
 
