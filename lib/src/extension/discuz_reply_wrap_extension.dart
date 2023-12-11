@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 
 class DiscuzReplyWrapExtension extends HtmlExtension {
-  final bool isPost;
-
-  DiscuzReplyWrapExtension({this.isPost = false});
+  const DiscuzReplyWrapExtension();
 
   @override
   Set<String> get supportedTags => {'blockquote'};
@@ -20,18 +18,18 @@ class DiscuzReplyWrapExtension extends HtmlExtension {
     return WidgetSpan(
       child: ReplyWrap(
         extensionContext: context,
-        isPost: isPost,
       ),
     );
   }
 }
 
 class ReplyWrap extends StatelessWidget {
-  final bool isPost;
   final ExtensionContext extensionContext;
 
-  const ReplyWrap(
-      {super.key, required this.extensionContext, required this.isPost});
+  const ReplyWrap({
+    super.key,
+    required this.extensionContext,
+  });
 
   @override
   Widget build(BuildContext context) {

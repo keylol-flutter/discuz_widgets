@@ -49,13 +49,15 @@ class _DiscuzState extends State<Discuz> {
   String _parseData(String data) {
     // trim
     data = data.trimLeft().trimRight();
-    // \r\n 替换空格
-    data = data.replaceAll('\r\n', '').replaceAll('\n\r', '');
+    // \r\n 替换成换行
+    data = data.replaceAll('\r\n', '<br />').replaceAll('\n\r', '<br />');
     // 多个 <br/> 合并
     data = data.replaceAllMapped(
       RegExp(r'(<br\s?/>)+'),
       (match) => '<br />',
     );
+    // 去除文末换行
+    data = data.replaceAllMapped(RegExp(r'(<br\s?/>)+$'), (match) => '');
 
     // 折叠内容
     data = data.replaceAllMapped(
@@ -158,7 +160,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzSpoilExtension(),
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
-          DiscuzReplyWrapExtension(isPost: widget.isPost),
+          const DiscuzReplyWrapExtension(),
           DiscuzImageExtension(baseUrl: widget.baseUrl),
           const DiscuzTableExtension(),
           const DiscuzIframeExtension(),
