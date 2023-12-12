@@ -91,6 +91,11 @@ class _DiscuzState extends State<Discuz> {
       },
     ).replaceAll('[/micxp_countdown]', '</countdown>');
 
+    // 附件后多余换行去除
+    data = data.replaceAllMapped(
+      RegExp(r'\[/attach](<br\s?/>)+'),
+      (match) => '[/attach]<br />',
+    );
     // 附件
     data = data.replaceAllMapped(
       RegExp(r'\[attach](((?!\[attach]).)*)\[/attach]'),
