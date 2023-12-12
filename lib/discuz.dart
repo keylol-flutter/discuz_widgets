@@ -49,99 +49,123 @@ class _DiscuzState extends State<Discuz> {
   String _parseData(String data) {
     // trim
     data = data.trimLeft().trimRight();
-    // \r\n 替换成换行
-    data = data.replaceAll('\r\n', '<br />').replaceAll('\n\r', '<br />');
-    // 多个 <br/> 合并
-    data = data.replaceAllMapped(
-      RegExp(r'(<br\s?/>)+'),
-      (match) => '<br />',
-    );
-    // 去除文末换行
-    data = data.replaceAllMapped(RegExp(r'(<br\s?/>)+$'), (match) => '');
-
-    // 折叠内容
-    data = data.replaceAllMapped(
-      RegExp(r'\[collapse=?([^\]]*)]'),
-      (match) {
-        return '<collapse title="${match[1]}">';
-      },
-    ).replaceAll('[/collapse]', '</collapse>');
-
-    // 隐藏内容
-    data = data.replaceAllMapped(
-      RegExp(r'\[spoil=?([^\]]*)]'),
-      (match) {
-        return '<spoil title="${match[1]}">';
-      },
-    ).replaceAll('[/spoil]', '</spoil>');
-
-    // 视频
-    data = data
-        .replaceAll('[media]', '<iframe src="')
-        .replaceAll('[/media]', '"></iframe>');
-
-    // 视频取消自动播放
-    data = data.replaceAll('<video', '<video autoplay="false"');
-
-    // 倒计时
-    data = data.replaceAllMapped(
-      RegExp(r'\[micxp_countdown=?([^\]]*)]'),
-      (match) {
-        return '<countdown title=${match[1]}>';
-      },
-    ).replaceAll('[/micxp_countdown]', '</countdown>');
-
-    // 附件后多余换行去除
-    data = data.replaceAllMapped(
-      RegExp(r'\[/attach](<br\s?/>)+'),
-      (match) => '[/attach]<br />',
-    );
-    // 附件
-    data = data.replaceAllMapped(
-      RegExp(r'\[attach](((?!\[attach]).)*)\[/attach]'),
-      (match) {
-        return '<img src="${widget.attachments.remove(match[1])}">';
-      },
-    );
-    // 多余附件文末显示
-    if (widget.attachments.isNotEmpty) {
-      for (final attachment in widget.attachments.values) {
-        data += '<br /><img src="$attachment">';
-      }
+    try {
+      // \r\n 替换成换行
+      data = data.replaceAll('\r\n', '<br />').replaceAll('\n\r', '<br />');
+      // 多个 <br/> 合并
+      data = data.replaceAllMapped(
+        RegExp(r'(<br\s?/>)+'),
+        (match) => '<br />',
+      );
+      // 去除文末换行
+      data = data.replaceAllMapped(RegExp(r'(<br\s?/>)+$'), (match) => '');
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack, label: '换行符合并失败 ${e.toString()}');
     }
 
-    // table
-    data = data.replaceAllMapped(
-      RegExp(r'<tr>(((?!<tr>).)*)<tr>', multiLine: true),
-      (match) {
-        var str = match[1] ?? '';
+    try {
+      // 折叠内容
+      data = data.replaceAllMapped(
+        RegExp(r'\[collapse=?([^\]]*)]'),
+        (match) {
+          return '<collapse title="${match[1]}">';
+        },
+      ).replaceAll('[/collapse]', '</collapse>');
 
-        while (str.contains('</tr>')) {
-          var tempStr = str.replaceFirst('</tr>', '');
-          if (!tempStr.contains('/tr>')) {
-            break;
-          }
-          str = tempStr;
+      // 隐藏内容
+      data = data.replaceAllMapped(
+        RegExp(r'\[spoil=?([^\]]*)]'),
+        (match) {
+          return '<spoil title="${match[1]}">';
+        },
+      ).replaceAll('[/spoil]', '</spoil>');
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack, label: '折叠或隐藏内容替换失败 ${e.toString()}');
+    }
+
+    try {
+      // 视频
+      data = data
+          .replaceAll('[media]', '<iframe src="')
+          .replaceAll('[/media]', '"></iframe>');
+
+      // 视频取消自动播放
+      data = data.replaceAll('<video', '<video autoplay="false"');
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack, label: '视频替换失败 ${e.toString()}');
+    }
+
+    try {
+      // 倒计时
+      data = data.replaceAllMapped(
+        RegExp(r'\[micxp_countdown=?([^\]]*)]'),
+        (match) {
+          return '<countdown title=${match[1]}>';
+        },
+      ).replaceAll('[/micxp_countdown]', '</countdown>');
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack, label: '倒计时替换失败 ${e.toString()}');
+    }
+
+    try {
+      // 附件后多余换行去除
+      data = data.replaceAllMapped(
+        RegExp(r'\[/attach](<br\s?/>)+'),
+        (match) => '[/attach]<br />',
+      );
+      // 附件
+      data = data.replaceAllMapped(
+        RegExp(r'\[attach](((?!\[attach]).)*)\[/attach]'),
+        (match) {
+          return '<img src="${widget.attachments.remove(match[1])}">';
+        },
+      );
+      // 多余附件文末显示
+      if (widget.attachments.isNotEmpty) {
+        for (final attachment in widget.attachments.values) {
+          data += '<br /><img src="$attachment">';
         }
+      }
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack, label: '附件替换失败 ${e.toString()}');
+    }
 
-        return '<tr>$str<tr>';
-      },
-    ).replaceAllMapped(
-      RegExp(r'<tr>(((?!<tr>).)*)$', multiLine: true),
-      (match) {
-        var str = match[1] ?? '';
+    try {
+      // table
+      data = data.replaceAllMapped(
+        RegExp(r'<tr>(((?!<tr>).)*)<tr>', multiLine: true),
+        (match) {
+          var str = match[1] ?? '';
 
-        while (str.contains('</tr>')) {
-          var tempStr = str.replaceFirst('</tr>', '');
-          if (!tempStr.contains('/tr>')) {
-            break;
+          while (str.contains('</tr>')) {
+            var tempStr = str.replaceFirst('</tr>', '');
+            if (!tempStr.contains('/tr>')) {
+              break;
+            }
+            str = tempStr;
           }
-          str = tempStr;
-        }
 
-        return '<tr>$str';
-      },
-    );
+          return '<tr>$str<tr>';
+        },
+      ).replaceAllMapped(
+        RegExp(r'<tr>(((?!<tr>).)*)$', multiLine: true),
+        (match) {
+          var str = match[1] ?? '';
+
+          while (str.contains('</tr>')) {
+            var tempStr = str.replaceFirst('</tr>', '');
+            if (!tempStr.contains('/tr>')) {
+              break;
+            }
+            str = tempStr;
+          }
+
+          return '<tr>$str';
+        },
+      );
+    } catch (e, stack) {
+      debugPrintStack(stackTrace: stack, label: '表格格式化失败 ${e.toString()}');
+    }
 
     // 使用 https
     data = data.replaceAll('http://', 'https://');
