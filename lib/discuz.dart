@@ -88,9 +88,6 @@ class _DiscuzState extends State<Discuz> {
       data = data
           .replaceAll('[media]', '<iframe src="')
           .replaceAll('[/media]', '"></iframe>');
-
-      // 视频取消自动播放
-      data = data.replaceAll('<video', '<video autoplay="false"');
     } catch (e, stack) {
       debugPrintStack(stackTrace: stack, label: '视频替换失败 ${e.toString()}');
     }
@@ -115,7 +112,7 @@ class _DiscuzState extends State<Discuz> {
       );
       // 附件
       data = data.replaceAllMapped(
-        RegExp(r'\[attach](((?!\[attach]).)*)\[/attach]'),
+        RegExp(r'\[attach](.*?)\[/attach]'),
         (match) {
           return '<img src="${widget.attachments.remove(match[1])}">';
         },
