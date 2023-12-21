@@ -197,6 +197,9 @@ class _DiscuzState extends State<Discuz> {
             margin: widget.nested ? Margins.zero : null,
             color: widget.color,
           ),
+          'p': Style(
+            lineHeight: LineHeight.normal,
+          ),
         },
       ),
     );
