@@ -6,8 +6,9 @@ import 'package:flutter_html/src/tree/image_element.dart';
 
 class DiscuzImageExtension extends ImageExtension {
   final String baseUrl;
+  final List<String> urls;
 
-  DiscuzImageExtension({required this.baseUrl})
+  DiscuzImageExtension({required this.baseUrl, this.urls = const []})
       : super(
           builder: (extensionContext) {
             final element = extensionContext.styledElement as ImageElement;
@@ -36,6 +37,7 @@ class DiscuzImageExtension extends ImageExtension {
                     return Dialog.fullscreen(
                       child: ImageView(
                         url: url,
+                        urls: urls,
                       ),
                     );
                   },

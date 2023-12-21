@@ -39,6 +39,7 @@ class Discuz extends StatefulWidget {
 
 class _DiscuzState extends State<Discuz> {
   late final String data;
+  final attachmentUrls = <String>[];
 
   @override
   void initState() {
@@ -114,12 +115,15 @@ class _DiscuzState extends State<Discuz> {
       data = data.replaceAllMapped(
         RegExp(r'\[attach](.*?)\[/attach]'),
         (match) {
-          return '<img src="${widget.attachments.remove(match[1])}">';
+          final attachmentUrl = widget.attachments.remove(match[1])!;
+          attachmentUrls.add(attachmentUrl);
+          return '<img src="$attachmentUrl">';
         },
       );
       // 多余附件文末显示
       if (widget.attachments.isNotEmpty) {
         for (final attachment in widget.attachments.values) {
+          attachmentUrls.add(attachment);
           data += '<br /><img src="$attachment">';
         }
       }
@@ -187,7 +191,7 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
           const DiscuzReplyWrapExtension(),
-          DiscuzImageExtension(baseUrl: widget.baseUrl),
+          DiscuzImageExtension(baseUrl: widget.baseUrl, urls: attachmentUrls),
           const DiscuzTableExtension(),
           const DiscuzIframeExtension(),
           const VideoHtmlExtension(),
