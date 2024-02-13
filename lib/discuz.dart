@@ -115,7 +115,10 @@ class _DiscuzState extends State<Discuz> {
       data = data.replaceAllMapped(
         RegExp(r'\[attach](.*?)\[/attach]'),
         (match) {
-          final attachmentUrl = widget.attachments.remove(match[1])!;
+          final attachmentUrl = widget.attachments.remove(match[1]);
+          if (attachmentUrl == null) {
+            return '';
+          }
           attachmentUrls.add(attachmentUrl);
           return '<img src="$attachmentUrl">';
         },
