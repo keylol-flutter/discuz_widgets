@@ -109,7 +109,7 @@ class _DiscuzState extends State<Discuz> {
       // 附件后多余换行去除
       data = data.replaceAllMapped(
         RegExp(r'\[/attach](<br\s?/>)+'),
-        (match) => '[/attach]<br />',
+        (match) => '[/attach]',
       );
       // 附件
       data = data.replaceAllMapped(
