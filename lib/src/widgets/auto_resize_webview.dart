@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class AutoResizeWebView extends StatefulWidget {
   final String url;
@@ -71,6 +72,13 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
           }
         },
         shouldOverrideUrlLoading: (controller, navigationAction) async {
+          final url = navigationAction.request.url;
+          if (url != null) {
+            launchUrlString(
+              url.toString(),
+              mode: LaunchMode.externalApplication,
+            );
+          }
           return NavigationActionPolicy.CANCEL;
         },
       ),
