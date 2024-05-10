@@ -34,12 +34,18 @@ class _CountdownState extends State<Countdown> {
   void initState() {
     date = widget.context.innerHtml.isEmpty
         ? null
-        : DateTime.parse(widget.context.innerHtml.replaceAllMapped(
-            RegExp(r'\s(\d):(\d{2})'),
-            (match) {
-              return ' 0${match[1]}:${match[2]}';
-            },
-          ));
+        : DateTime.parse(widget.context.innerHtml
+            .replaceAllMapped(
+              RegExp(r'\s(\d):(\d{2})'),
+              (match) {
+                return ' 0${match[1]}:${match[2]}';
+              },
+            )
+            .replaceAllMapped(
+              RegExp(r'(<br\s?/>)+'),
+              (match) => '',
+            )
+            .trim());
     text = widget.context.attributes['title'];
     super.initState();
   }
