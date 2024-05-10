@@ -42,7 +42,7 @@ class _CountdownState extends State<Countdown> {
               },
             )
             .replaceAllMapped(
-              RegExp(r'(<br\s?/>)+'),
+              RegExp(r'(<br\s?/?>)+'),
               (match) => '',
             )
             .trim());
