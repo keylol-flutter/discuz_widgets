@@ -43,7 +43,7 @@ class _BlockCodeState extends State<BlockCode> {
     } else {
       codeLines = element
           .getElementsByTagName('li')
-          .map((e) => e.innerHtml)
+          .map((e) => e.innerHtml.replaceAll('&nbsp', ' '))
           .where((e) => e.isNotEmpty)
           .toList();
     }
@@ -57,7 +57,7 @@ class _BlockCodeState extends State<BlockCode> {
     }
 
     return Container(
-      color: Theme.of(context).colorScheme.surfaceVariant,
+      color: Theme.of(context).colorScheme.surfaceContainerHighest,
       padding: const EdgeInsets.all(8),
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,

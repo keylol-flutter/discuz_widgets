@@ -48,7 +48,7 @@ class _CollapseState extends State<Collapse> {
       return Card(
         elevation: 0,
         margin: const EdgeInsets.only(top: 4, bottom: 4),
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
         child: InkWell(
           borderRadius: const BorderRadius.all(Radius.circular(12)),
           onTap: () {
@@ -81,7 +81,7 @@ class _CollapseState extends State<Collapse> {
             Card(
               elevation: 0,
               margin: EdgeInsets.zero,
-              color: Theme.of(context).colorScheme.surfaceVariant,
+              color: Theme.of(context).colorScheme.surfaceContainerHighest,
               shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.vertical(
                   top: Radius.circular(12),
@@ -120,7 +120,7 @@ class _CollapseState extends State<Collapse> {
               margin: EdgeInsets.zero,
               shape: RoundedRectangleBorder(
                 side: BorderSide(
-                  color: Theme.of(context).colorScheme.surfaceVariant,
+                  color: Theme.of(context).colorScheme.surfaceContainerHighest,
                 ),
                 borderRadius: const BorderRadius.vertical(
                   top: Radius.zero,

@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:discuz_widgets/src/widgets/image_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+// ignore: implementation_imports
 import 'package:flutter_html/src/tree/image_element.dart';
 
 class DiscuzImageExtension extends ImageExtension {

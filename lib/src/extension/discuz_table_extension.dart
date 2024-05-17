@@ -1,6 +1,7 @@
 import 'package:discuz_widgets/discuz.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+// ignore: depend_on_referenced_packages
 import 'package:html/dom.dart' as dom;
 
 class DiscuzTableExtension extends HtmlExtension {
