@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:url_launcher/url_launcher_string.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AutoResizeWebView extends StatefulWidget {
   final String url;
@@ -35,10 +35,13 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
 
     if (url.startsWith('https://store.steampowered.com/widget')) {
       _height = 73.0;
-    } else if (url.startsWith('https://music.163.com/outchain/player')) {
-      url = url.replaceAllMapped(RegExp(r'height=(\d+)'), (match) {
-        return 'height=70';
-      });
+    } else if (url.startsWith('file:///music.163.com/outchain/player')) {
+      url = url.replaceFirst('file:///', 'https://').replaceAllMapped(
+        RegExp(r'height=(\d+)'),
+        (match) {
+          return 'height=70';
+        },
+      );
       _height = 70.0;
     }
 
@@ -50,13 +53,11 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
     return SizedBox(
       height: _height,
       child: InAppWebView(
-        initialUrlRequest: URLRequest(url: Uri.parse(url)),
-        initialOptions: InAppWebViewGroupOptions(
-          crossPlatform: InAppWebViewOptions(
-            transparentBackground: true,
-            javaScriptEnabled: true,
-            javaScriptCanOpenWindowsAutomatically: true,
-          ),
+        initialUrlRequest: URLRequest(url: WebUri(url)),
+        initialSettings: InAppWebViewSettings(
+          transparentBackground: true,
+          javaScriptEnabled: true,
+          javaScriptCanOpenWindowsAutomatically: true,
         ),
         onLoadStop: (controller, uri) async {
           if (_height != null) {
@@ -72,14 +73,14 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
           }
         },
         shouldOverrideUrlLoading: (controller, navigationAction) async {
-          final url = navigationAction.request.url;
-          if (url != null) {
-            launchUrlString(
-              url.toString(),
-              mode: LaunchMode.externalApplication,
+          final url = navigationAction.request.url!;
+          if (await canLaunchUrl(url)) {
+            await launchUrl(
+              url,
             );
+            return NavigationActionPolicy.CANCEL;
           }
-          return NavigationActionPolicy.CANCEL;
+          return NavigationActionPolicy.ALLOW;
         },
       ),
     );
