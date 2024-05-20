@@ -56,7 +56,7 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
         initialUrlRequest: URLRequest(url: WebUri(url)),
         initialSettings: InAppWebViewSettings(
           transparentBackground: true,
-          javaScriptEnabled: true,
+          javaScriptEnabled: false,
           javaScriptCanOpenWindowsAutomatically: false,
         ),
         onLoadStop: (controller, uri) async {
