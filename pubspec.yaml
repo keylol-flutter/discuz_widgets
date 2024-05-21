@@ -50,6 +50,7 @@ dependencies:
   dio: ^5.3.3
   url_launcher: ^6.1.14
   cached_network_image: ^3.3.0
+  html_unescape: ^2.0.0
 
 dev_dependencies:
   flutter_test:

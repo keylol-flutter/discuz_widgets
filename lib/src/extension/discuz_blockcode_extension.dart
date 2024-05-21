@@ -43,7 +43,7 @@ class _BlockCodeState extends State<BlockCode> {
     } else {
       codeLines = element
           .getElementsByTagName('li')
-          .map((e) => e.innerHtml.replaceAll('&nbsp', ' '))
+          .map((e) => e.innerHtml)
           .where((e) => e.isNotEmpty)
           .toList();
     }

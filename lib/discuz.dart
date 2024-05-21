@@ -9,6 +9,7 @@ import 'package:discuz_widgets/src/extension/discuz_table_extension.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_html_video/flutter_html_video.dart';
+import 'package:html_unescape/html_unescape.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class Discuz extends StatefulWidget {
@@ -173,6 +174,10 @@ class _DiscuzState extends State<Discuz> {
 
     // 使用 https
     data = data.replaceAll('http://', 'https://');
+
+    // html unescape
+    final htmlUnescape = HtmlUnescape();
+    data = htmlUnescape.convert(data);
 
     return data;
   }
