@@ -42,6 +42,7 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
       _height = 80.0;
     } else if (url.startsWith('//music.163.com/outchain/player')) {
       url = 'https:$url';
+      url = url.replaceFirst('music.163.com', 'music.163.com/m');
       _height = 66.0;
     }
 
@@ -55,6 +56,7 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
       child: InAppWebView(
         initialData: InAppWebViewInitialData(
           data: '''
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
             <iframe src="$url" width="100%" height="100%" frameborder="0"
               allowfullscreen="allowfullscreen" sandbox="allow-top-navigation allow-same-origin allow-forms allow-scripts allow-popups"/>
           ''',
