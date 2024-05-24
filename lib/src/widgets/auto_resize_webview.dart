@@ -38,9 +38,7 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
           'https://www.youtube.com/embed/QdBZY2fkU-0?si=NmWFz6qgan_jSLBY');
     }
 
-    if (url.startsWith('https://store.steampowered.com/widget')) {
-      _height = 80.0;
-    } else if (url.startsWith('//music.163.com/outchain/player')) {
+    if (url.startsWith('//music.163.com/outchain/player')) {
       url = 'https:$url';
       url = url.replaceFirst('music.163.com', 'music.163.com/m');
     }
