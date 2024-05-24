@@ -43,7 +43,6 @@ class _AutoResizeWebViewState extends State<AutoResizeWebView>
     } else if (url.startsWith('//music.163.com/outchain/player')) {
       url = 'https:$url';
       url = url.replaceFirst('music.163.com', 'music.163.com/m');
-      _height = 66.0;
     }
 
     if (_height == null) {
