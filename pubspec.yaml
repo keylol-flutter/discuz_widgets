@@ -52,6 +52,9 @@ dependencies:
   cached_network_image: ^3.3.0
   html_unescape: ^2.0.0
 
+dependency_overrides:
+  webview_flutter_android: 3.16.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
