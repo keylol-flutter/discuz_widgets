@@ -25,6 +25,8 @@ class Discuz extends StatefulWidget {
 
   final void Function(bool)? saveImgCallback;
 
+  final void Function(Object, StackTrace)? onError;
+
   const Discuz({
     super.key,
     this.baseUrl = '',
@@ -35,6 +37,7 @@ class Discuz extends StatefulWidget {
     this.color,
     this.onLinkTap,
     this.saveImgCallback,
+    this.onError,
   });
 
   @override
@@ -57,6 +60,8 @@ class _DiscuzState extends State<Discuz> {
     try {
       // \r\n 替换成换行
       data = data.replaceAll('\r\n', '<br />').replaceAll('\n\r', '<br />');
+      // 统一换行
+      data = data.replaceAll('<br>', '<br />');
       // 多个 <br/> 合并
       data = data.replaceAllMapped(
         RegExp(r'(<br\s?/>)+'),
@@ -64,8 +69,8 @@ class _DiscuzState extends State<Discuz> {
       );
       // 去除文末换行
       data = data.replaceAllMapped(RegExp(r'(<br\s?/>)+$'), (match) => '');
-    } catch (e, stack) {
-      debugPrintStack(stackTrace: stack, label: '换行符合并失败 ${e.toString()}');
+    } catch (error, stackTrace) {
+      widget.onError?.call(error, stackTrace);
     }
 
     try {
@@ -84,8 +89,8 @@ class _DiscuzState extends State<Discuz> {
           return '<spoil title="${match[1]}">';
         },
       ).replaceAll('[/spoil]', '</spoil>');
-    } catch (e, stack) {
-      debugPrintStack(stackTrace: stack, label: '折叠或隐藏内容替换失败 ${e.toString()}');
+    } catch (error, stackTrace) {
+      widget.onError?.call(error, stackTrace);
     }
 
     try {
@@ -93,8 +98,8 @@ class _DiscuzState extends State<Discuz> {
       data = data
           .replaceAll('[media]', '<iframe src="')
           .replaceAll('[/media]', '"></iframe>');
-    } catch (e, stack) {
-      debugPrintStack(stackTrace: stack, label: '视频替换失败 ${e.toString()}');
+    } catch (error, stackTrace) {
+      widget.onError?.call(error, stackTrace);
     }
 
     try {
@@ -105,8 +110,8 @@ class _DiscuzState extends State<Discuz> {
           return '<countdown title=${match[1]}>';
         },
       ).replaceAll('[/micxp_countdown]', '</countdown>');
-    } catch (e, stack) {
-      debugPrintStack(stackTrace: stack, label: '倒计时替换失败 ${e.toString()}');
+    } catch (error, stackTrace) {
+      widget.onError?.call(error, stackTrace);
     }
 
     try {
@@ -134,8 +139,8 @@ class _DiscuzState extends State<Discuz> {
           data += '<br /><img src="$attachment">';
         }
       }
-    } catch (e, stack) {
-      debugPrintStack(stackTrace: stack, label: '附件替换失败 ${e.toString()}');
+    } catch (error, stackTrace) {
+      widget.onError?.call(error, stackTrace);
     }
 
     try {
@@ -171,8 +176,8 @@ class _DiscuzState extends State<Discuz> {
           return '<tr>$str';
         },
       );
-    } catch (e, stack) {
-      debugPrintStack(stackTrace: stack, label: '表格格式化失败 ${e.toString()}');
+    } catch (error, stackTrace) {
+      widget.onError?.call(error, stackTrace);
     }
 
     // 使用 https

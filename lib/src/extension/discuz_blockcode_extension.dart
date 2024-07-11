@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:html_unescape/html_unescape.dart';
 
 class DiscuzBlockcodeExtension extends HtmlExtension {
   const DiscuzBlockcodeExtension();
@@ -45,6 +46,8 @@ class _BlockCodeState extends State<BlockCode> {
           .getElementsByTagName('li')
           .map((e) => e.innerHtml)
           .where((e) => e.isNotEmpty)
+          .map(
+              (e) => HtmlUnescape().convert(e).replaceAll(RegExp(r'<br>$'), ''))
           .toList();
     }
     super.initState();
@@ -59,6 +62,7 @@ class _BlockCodeState extends State<BlockCode> {
     return Container(
       color: Theme.of(context).colorScheme.surfaceContainerHighest,
       padding: const EdgeInsets.all(8),
+      width: double.infinity,
       child: SingleChildScrollView(
         scrollDirection: Axis.horizontal,
         child: Column(
