@@ -23,6 +23,8 @@ class Discuz extends StatefulWidget {
   final Color? color;
   final OnTap? onLinkTap;
 
+  final void Function(bool)? saveImgCallback;
+
   const Discuz({
     super.key,
     this.baseUrl = '',
@@ -32,6 +34,7 @@ class Discuz extends StatefulWidget {
     this.nested = false,
     this.color,
     this.onLinkTap,
+    this.saveImgCallback,
   });
 
   @override
@@ -199,7 +202,11 @@ class _DiscuzState extends State<Discuz> {
           const DiscuzCountdownExtension(),
           const DiscuzBlockcodeExtension(),
           const DiscuzReplyWrapExtension(),
-          DiscuzImageExtension(baseUrl: widget.baseUrl, urls: attachmentUrls),
+          DiscuzImageExtension(
+            baseUrl: widget.baseUrl,
+            urls: attachmentUrls,
+            saveImgCallback: widget.saveImgCallback,
+          ),
           const DiscuzTableExtension(),
           const DiscuzIframeExtension(),
           const VideoHtmlExtension(),

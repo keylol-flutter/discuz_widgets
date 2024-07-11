@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
@@ -10,7 +11,14 @@ class ImageView extends StatefulWidget {
   final String url;
   final List<String> urls;
 
-  const ImageView({super.key, required this.url, required this.urls});
+  final void Function(bool)? saveImgCallback;
+
+  const ImageView({
+    super.key,
+    required this.url,
+    required this.urls,
+    this.saveImgCallback,
+  });
 
   @override
   State<StatefulWidget> createState() => _ImageViewState();
@@ -55,16 +63,8 @@ class _ImageViewState extends State<ImageView> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () {
-              _saveNetworkImageToPhoto(context).then((success) {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: success
-                        ? const Text('Save success')
-                        : const Text('Save failed'),
-                    behavior: SnackBarBehavior.floating,
-                  ),
-                );
-              });
+              _saveNetworkImageToPhoto(context)
+                  .then((success) => widget.saveImgCallback?.call(success));
             },
           ),
         ],
@@ -75,10 +75,15 @@ class _ImageViewState extends State<ImageView> {
         ),
         builder: (context, index) {
           return PhotoViewGalleryPageOptions(
-            imageProvider: NetworkImage(widget.urls[index]),
-            initialScale: PhotoViewComputedScale.contained,
-            heroAttributes: PhotoViewHeroAttributes(tag: widget.urls[index]),
-          );
+              imageProvider: CachedNetworkImageProvider(widget.urls[index]),
+              initialScale: PhotoViewComputedScale.contained,
+              heroAttributes: PhotoViewHeroAttributes(tag: widget.urls[index]),
+              errorBuilder: (context, error, stackTrace) {
+                print('ImageView error: $error');
+                print('ImageView stackTrace: $stackTrace');
+
+                return const Center(child: CircularProgressIndicator());
+              });
         },
         itemCount: widget.urls.length,
         pageController: _controller,

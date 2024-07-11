@@ -9,8 +9,13 @@ class DiscuzImageExtension extends ImageExtension {
   final String baseUrl;
   final List<String> urls;
 
-  DiscuzImageExtension({required this.baseUrl, this.urls = const []})
-      : super(
+  final void Function(bool)? saveImgCallback;
+
+  DiscuzImageExtension({
+    required this.baseUrl,
+    this.urls = const [],
+    this.saveImgCallback,
+  }) : super(
           builder: (extensionContext) {
             final element = extensionContext.styledElement as ImageElement;
 
@@ -39,6 +44,7 @@ class DiscuzImageExtension extends ImageExtension {
                       child: ImageView(
                         url: url,
                         urls: urls,
+                        saveImgCallback: saveImgCallback,
                       ),
                     );
                   },
