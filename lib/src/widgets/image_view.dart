@@ -3,7 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_save/image_save.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -96,14 +96,12 @@ class _ImageViewState extends State<ImageView> {
 
   Future<bool> _saveNetworkImageToPhoto(BuildContext context) async {
     final url = widget.urls[_index];
-    final fileName = url.split('/').last;
     try {
       Response<List<int>> res = await Dio().get<List<int>>(url,
           options: Options(responseType: ResponseType.bytes));
       final data = Uint8List.fromList(res.data!);
-      return await ImageSave.saveImage(data, fileName,
-              overwriteSameNameFile: false) ??
-          false;
+      final result = await ImageGallerySaver.saveImage(data);
+      return result['isSuccess'] ?? false;
     } catch (e) {
       return false;
     }
