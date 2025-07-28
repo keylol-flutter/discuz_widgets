@@ -3,7 +3,7 @@ import 'package:collection/collection.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:image_gallery_saver/image_gallery_saver.dart';
+// import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
@@ -59,15 +59,15 @@ class _ImageViewState extends State<ImageView> {
             Navigator.pop(context);
           },
         ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: () {
-              _saveNetworkImageToPhoto(context)
-                  .then((success) => widget.saveImgCallback?.call(success));
-            },
-          ),
-        ],
+        // actions: [
+        //   IconButton(
+        //     icon: const Icon(Icons.save),
+        //     onPressed: () {
+        //       _saveNetworkImageToPhoto(context)
+        //           .then((success) => widget.saveImgCallback?.call(success));
+        //     },
+        //   ),
+        // ],
       ),
       body: PhotoViewGallery.builder(
         backgroundDecoration: const BoxDecoration(
@@ -94,16 +94,16 @@ class _ImageViewState extends State<ImageView> {
     );
   }
 
-  Future<bool> _saveNetworkImageToPhoto(BuildContext context) async {
-    final url = widget.urls[_index];
-    try {
-      Response<List<int>> res = await Dio().get<List<int>>(url,
-          options: Options(responseType: ResponseType.bytes));
-      final data = Uint8List.fromList(res.data!);
-      final result = await ImageGallerySaver.saveImage(data);
-      return result['isSuccess'] ?? false;
-    } catch (e) {
-      return false;
-    }
-  }
+  // Future<bool> _saveNetworkImageToPhoto(BuildContext context) async {
+  //   final url = widget.urls[_index];
+  //   try {
+  //     Response<List<int>> res = await Dio().get<List<int>>(url,
+  //         options: Options(responseType: ResponseType.bytes));
+  //     final data = Uint8List.fromList(res.data!);
+  //     final result = await ImageGallerySaver.saveImage(data);
+  //     return result['isSuccess'] ?? false;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // }
 }
